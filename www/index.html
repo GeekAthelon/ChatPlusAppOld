@@ -16,7 +16,14 @@
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
+                <p class="event timed-out">No device found</p>
             </div>
+
+            <div>
+                <button id="login-button" type="button" style="display:none">Login</button>
+                <button id="qunit-button" type="button" style="display:none">Run QUnit tests</button>
+            </div>
+
         </div>
 
         <script src="js/lib/es6-promise-2.0.1.js"></script>
@@ -34,6 +41,31 @@
             });
 
             var Promise = ES6Promise.Promise;
+
+            (function() {
+                // Get a handle on the global object
+                var local;
+                if (typeof global !== 'undefined') local = global;
+                else if (typeof window !== 'undefined' && window.document) local = window;
+                else local = self;
+
+                // It's replaced unconditionally to preserve the expected behavior
+                // in programs even if there's ever a native finally.
+                local.Promise.prototype['finally'] = function finallyPolyfill(callback) {
+                    var constructor = this.constructor;
+
+                    return this.then(function(value) {
+                        return constructor.resolve(callback()).then(function() {
+                            return value;
+                        });
+                    }, function(reason) {
+                        return constructor.resolve(callback()).then(function() {
+                            throw reason;
+                        });
+                    });
+                };
+            }());
+
         </script>
 
         <script src="cordova.js"></script>

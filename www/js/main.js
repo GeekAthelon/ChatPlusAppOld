@@ -48,6 +48,7 @@ requirejs(["text!html/index.html"], function (text) {
             },
             // Update DOM on a Received Event
             receivedEvent: function (id) {
+                /*
                 var parentElement = document.getElementById(id);
                 var listeningElement = parentElement.querySelector('.listening');
                 var receivedElement = parentElement.querySelector('.received');
@@ -56,15 +57,20 @@ requirejs(["text!html/index.html"], function (text) {
                 receivedElement.setAttribute('style', 'display:block;');
 
                 console.log('Received Event: ' + id);
+                */
+
             }
         };
         app.initialize();
     });
 
     promise.then(function (value) {
-        alert("Sample Promise Resolved");
-    }, function (reason) {
-        alert("Sample Promise Rejected " + reason);
+        document.querySelector('.received').setAttribute('style', 'display:block;');
+        document.getElementById("login-button").style.display = "";
+    }).catch(function (reason) {
+        document.querySelector(".timed-out").setAttribute('style', 'display:block;');
+    }).finally(function(reason) {
+        document.querySelector('.listening').setAttribute('style', 'display:none;');
+        document.getElementById("qunit-button").style.display = "";
     });
-
 });
