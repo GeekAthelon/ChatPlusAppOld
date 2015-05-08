@@ -38,6 +38,18 @@
 
         <script data-main="js/main" src="js/lib/require-2.1.27.js"></script>
 
+        <script>
+            require.config({
+                appDir: "../",
+                baseUrl: "js",
+                paths: {
+                    "text": "lib/text",
+                    "html": ".."
+                },
+                waitSeconds: 15
+            });
+        </script>
+
         <script src="cordova.js"></script>
         <script src="js/index.js"></script>
 

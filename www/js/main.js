@@ -1,4 +1,4 @@
-requirejs([], function() {
+requirejs(["text!html/index.html"], function(text) {
 	/*
 	 * Licensed to the Apache Software Foundation (ASF) under one
 	 * or more contributor license agreements.  See the NOTICE file
@@ -17,6 +17,10 @@ requirejs([], function() {
 	 * specific language governing permissions and limitations
 	 * under the License.
 	 */
+
+	//alert(text);
+	//alert(window.location);
+
 	var app = {
 		// Application Constructor
 		initialize: function() {
@@ -35,7 +39,6 @@ requirejs([], function() {
 		// function, we must explicitly call 'app.receivedEvent(...);'
 		onDeviceReady: function() {
 			app.receivedEvent('deviceready');
-			alert("Device ready");
 		},
 		// Update DOM on a Received Event
 		receivedEvent: function(id) {
