@@ -23,7 +23,7 @@ requirejs(["wireup-qunit"], function (wireQUnit) {
     var promise = new Promise(function (resolve, reject) {
         window.setTimeout(function () {
             reject("Attempted connect timed out");
-        }, 3 * 1000);
+        }, 300);
 
         var app = {
             // Application Constructor
