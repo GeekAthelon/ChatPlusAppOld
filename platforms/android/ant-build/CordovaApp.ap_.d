@@ -38,6 +38,7 @@ C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\a
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\templates \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\css\index.css \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\img\logo.png \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\config.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\main.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\wireup-qunit.js \

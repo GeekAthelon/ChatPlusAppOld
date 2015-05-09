@@ -10,6 +10,15 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
 
         <title>ChatPlus</title>
+
+        <script src="js/lib/qunit/qunit-1.18.0.js"></script>
+
+        <script src="js/lib/es6-promise-2.0.1.js"></script>
+        <script data-main="js/main" src="js/lib/require-2.1.27.js"></script>
+
+        <script src="js/config.js"></script>
+
+        <script src="cordova.js"></script>
     </head>
     <body>
         <div class="app">
@@ -27,52 +36,5 @@
 
         </div>
 
-        <script src="js/lib/qunit/qunit-1.18.0.js"></script>
-
-        <script src="js/lib/es6-promise-2.0.1.js"></script>
-        <script data-main="js/main" src="js/lib/require-2.1.27.js"></script>
-
-        <script>
-            require.config({
-                appDir: "../",
-                baseUrl: "js",
-                paths: {
-                    "text": "lib/text",
-                    "html": ".."
-                },
-                waitSeconds: 15
-            });
-
-            QUnit.config.autostart = false;
-
-            var Promise = ES6Promise.Promise;
-
-            (function() {
-                // Get a handle on the global object
-                var local;
-                if (typeof global !== 'undefined') local = global;
-                else if (typeof window !== 'undefined' && window.document) local = window;
-                else local = self;
-
-                // It's replaced unconditionally to preserve the expected behavior
-                // in programs even if there's ever a native finally.
-                local.Promise.prototype['finally'] = function finallyPolyfill(callback) {
-                    var constructor = this.constructor;
-
-                    return this.then(function(value) {
-                        return constructor.resolve(callback()).then(function() {
-                            return value;
-                        });
-                    }, function(reason) {
-                        return constructor.resolve(callback()).then(function() {
-                            throw reason;
-                        });
-                    });
-                };
-            }());
-
-        </script>
-
-        <script src="cordova.js"></script>
     </body>
 </html>
