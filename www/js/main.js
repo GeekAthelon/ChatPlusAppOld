@@ -1,4 +1,9 @@
+/*global requirejs:true */
+/*global Promise:true */
+
 requirejs(["wireup-qunit"], function (wireQUnit) {
+    "use strict";
+
     /*
      * Licensed to the Apache Software Foundation (ASF) under one
      * or more contributor license agreements.  See the NOTICE file
@@ -35,6 +40,7 @@ requirejs(["wireup-qunit"], function (wireQUnit) {
             // Bind any events that are required on startup. Common events are:
             // 'load', 'deviceready', 'offline', and 'online'.
             bindEvents: function () {
+                //noinspection JSCheckFunctionSignatures
                 document.addEventListener('deviceready', this.onDeviceReady, false);
             },
             // deviceready Event Handler
@@ -53,12 +59,12 @@ requirejs(["wireup-qunit"], function (wireQUnit) {
         app.initialize();
     });
 
-    promise.then(function (value) {
+    promise.then(function (/*value*/) {
         document.querySelector('.received').setAttribute('style', 'display:block;');
         document.getElementById("login-button").style.display = "";
-    }).catch(function (reason) {
+    }).catch(function (/*reason*/) {
         document.querySelector(".timed-out").setAttribute('style', 'display:block;');
-    }).finally(function(reason) {
+    }).finally(function(/*reason*/) {
         document.querySelector('.listening').setAttribute('style', 'display:none;');
         document.getElementById("qunit-button").style.display = "";
 

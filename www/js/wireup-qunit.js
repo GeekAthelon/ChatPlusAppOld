@@ -1,7 +1,11 @@
+/*global define:true */
+
 define(["text!html/templates/qunit.html"], function (template) {
 
+    "use strict";
+
     function clearTestStatus() {
-        window.sessionStorage.setItem("isTesting", "false");
+        window.sessionStorage.setItem('isTesting', 'false');
         window.location.reload();
     }
 
@@ -9,7 +13,7 @@ define(["text!html/templates/qunit.html"], function (template) {
         var partner = document.querySelector("#qunit-testrunner-toolbar button");
 
         if (!partner) {
-            window.setTimeout(appendStopTest);
+            window.setTimeout(appendStopTest, 1);
             return;
         }
 
@@ -26,7 +30,6 @@ define(["text!html/templates/qunit.html"], function (template) {
         document.body.innerHTML = template;
         QUnit.start();
         window.sessionStorage.setItem("isTesting", "true");
-        isTesting = true;
         appendStopTest();
     }
 
@@ -37,12 +40,12 @@ define(["text!html/templates/qunit.html"], function (template) {
         button.addEventListener("click", handleClick, true);
     }
 
-    function redraw(queryString) {
+    function redraw() {
         handleClick();
     }
 
     function getIsTesting() {
-        return window.sessionStorage.getItem("isTesting") === "true";
+        return window.sessionStorage.getItem('isTesting') === 'true';
     }
 
     return {
