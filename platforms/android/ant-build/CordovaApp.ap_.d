@@ -38,9 +38,11 @@ C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\a
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\templates \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\css\index.css \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\img\logo.png \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\ajax.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\config.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\main.js \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\wireup-login-button.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\wireup-qunit.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib\es6-promise-2.0.1.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib\jshint.js \
@@ -49,5 +51,7 @@ C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\a
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib\text.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib\qunit\qunit-1.18.0.css \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib\qunit\qunit-1.18.0.js \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\templates\index.html \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\templates\login.html \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\templates\qunit.html \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\ant-build\AndroidManifest.xml \

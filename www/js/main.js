@@ -1,7 +1,7 @@
 /*global requirejs:true */
 /*global Promise:true */
 
-requirejs(["wireup-qunit"], function (wireQUnit) {
+requirejs(["text!html/templates/index.html", "wireup-qunit", "wireup-login-button"], function (html, wireQUnit, wireLogin) {
     "use strict";
 
     /*
@@ -23,10 +23,14 @@ requirejs(["wireup-qunit"], function (wireQUnit) {
      * under the License.
      */
 
+    document.body.innerHTML = html;
+
     wireQUnit.init();
+    wireLogin.init();
 
     var promise = new Promise(function (resolve, reject) {
         window.setTimeout(function () {
+            resolve("Whatever");
             reject("Attempted connect timed out");
         }, 300);
 
@@ -42,6 +46,11 @@ requirejs(["wireup-qunit"], function (wireQUnit) {
             bindEvents: function () {
                 //noinspection JSCheckFunctionSignatures
                 document.addEventListener('deviceready', this.onDeviceReady, false);
+
+                document.addEventListener("load", function () {
+                    window.alert("Page loaded!");
+                }, false);
+
             },
             // deviceready Event Handler
             //

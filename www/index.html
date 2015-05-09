@@ -6,7 +6,11 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <zmeta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <!--
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        -->
+
         <link rel="stylesheet" type="text/css" href="css/index.css" />
 
         <title>ChatPlus</title>
@@ -21,20 +25,5 @@
         <script src="cordova.js"></script>
     </head>
     <body>
-        <div class="app">
-            <h1>ChatPlus</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-                <p class="event timed-out">No device found</p>
-            </div>
-
-            <div>
-                <button id="login-button" type="button" style="display:none">Login</button>
-                <button id="qunit-button" type="button" style="display:none">Run QUnit tests</button>
-            </div>
-
-        </div>
-
     </body>
 </html>
