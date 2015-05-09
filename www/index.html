@@ -8,6 +8,7 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <zmeta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+
         <title>ChatPlus</title>
     </head>
     <body>
@@ -26,6 +27,8 @@
 
         </div>
 
+        <script src="js/lib/qunit/qunit-1.18.0.js"></script>
+
         <script src="js/lib/es6-promise-2.0.1.js"></script>
         <script data-main="js/main" src="js/lib/require-2.1.27.js"></script>
 
@@ -39,6 +42,8 @@
                 },
                 waitSeconds: 15
             });
+
+            QUnit.config.autostart = false;
 
             var Promise = ES6Promise.Promise;
 

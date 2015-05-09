@@ -1,4 +1,4 @@
-requirejs(["text!html/index.html"], function (text) {
+requirejs(["wireup-qunit"], function (wireQUnit) {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one
      * or more contributor license agreements.  See the NOTICE file
@@ -18,8 +18,7 @@ requirejs(["text!html/index.html"], function (text) {
      * under the License.
      */
 
-    //alert(text);
-    //alert(window.location);
+    wireQUnit.init();
 
     var promise = new Promise(function (resolve, reject) {
         window.setTimeout(function () {
@@ -72,5 +71,9 @@ requirejs(["text!html/index.html"], function (text) {
     }).finally(function(reason) {
         document.querySelector('.listening').setAttribute('style', 'display:none;');
         document.getElementById("qunit-button").style.display = "";
+
+        if (wireQUnit.isTesting()) {
+            wireQUnit.redraw();
+        }
     });
 });
