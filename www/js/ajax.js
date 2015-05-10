@@ -69,7 +69,57 @@ define([], function () {
         });
     }
 
+
+    function post(url, data) {
+        return new Promise(function (resolve, reject) {
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', url);
+            xhr.onreadystatechange = handler;
+            xhr.send(data);
+
+            function handler() {
+                /*jshint validthis:true */
+                if (this.readyState === this.DONE) {
+                    if (this.status === 200) {
+                        resolve(this.response);
+                    } else {
+                        var msg = 'ajax.post: `' + url + '` failed with status: [' + this.status + ']';
+                        reject(new Error(msg));
+                    }
+                }
+            }
+        });
+    }
+
+    function get(url) {
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', url);
+            xhr.onreadystatechange = handler;
+            //xhr.responseType = 'json';
+            //xhr.setRequestHeader('Accept', 'application/json');
+            xhr.send();
+
+            function handler() {
+                /*jshint validthis:true */
+                if (this.readyState === this.DONE) {
+                    if (this.status === 200) {
+                        resolve(this.response);
+                    } else {
+                        var msg = 'get: `' + url + '` failed with status: [' + this.status + ']';
+                        reject(new Error(msg));
+                    }
+                }
+            }
+        });
+    }
+
     return {
-        serialize: serialize
+        serialize: serialize,
+        post: post,
+        get: get
     };
 });
