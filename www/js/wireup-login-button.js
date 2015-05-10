@@ -14,7 +14,7 @@ define(["text!html/templates/login.html", "ajax", "page"], function (template, a
 
         var serializePromise = ajax.serialize(form);
         serializePromise.then(function (data) {
-            page.submit(url, data);
+            page.firstSubmit(url, data);
         });
     }
 
@@ -29,10 +29,6 @@ define(["text!html/templates/login.html", "ajax", "page"], function (template, a
 
         button.removeEventListener("click", handleClick, false);
         button.addEventListener("click", handleClick, false);
-
-        window.addEventListener("load", function () {
-            //window.alert("init: load event called");
-        }, false);
     }
 
     return {

@@ -1,8 +1,19 @@
 /*global define:true */
 /*global Promise:true */
 
-define(["ajax"], function (ajax) {
+define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemplate, ajax) {
         "use strict";
+
+        var hyperchat = (function () {
+
+            function getRoomName(doc) {
+                return doc.getElementsByName("vqxro")[0].value;
+            }
+
+            return {
+                getRoomName: getRoomName
+            };
+        }());
 
         function htmlToDom(html) {
             return new Promise(function (resolve /*, reject  */) {
@@ -81,8 +92,7 @@ define(["ajax"], function (ajax) {
                 var oldUrl = link.href;
                 var queryString = oldUrl.split("?")[1];
 
-                var newUrl = relativeUrlToAbsolute(baseUrl, oldUrl);
-                link.href = newUrl;
+                link.href = relativeUrlToAbsolute(baseUrl, oldUrl);
                 if (queryString) {
                     link.href += "?" + queryString;
                 }
@@ -92,6 +102,25 @@ define(["ajax"], function (ajax) {
         }
 
         function copyPageToDom(url, html) {
+            function addToTabs(iframe, doc) {
+                var roomName = hyperchat.getRoomName(doc);
+
+                var li = document.querySelector("#tab-names [data-room-name='" + roomName + "']");
+                if (!li) {
+                    li = document.createElement("li");
+                    li.setAttribute("data-room-name", roomName);
+                    li.appendChild(document.createTextNode(roomName));
+                    document.getElementById("tab-names").appendChild(li);
+                }
+
+                var oldIframe = document.querySelector("[data-iframe-room-name='" + roomName + "']");
+                if (oldIframe) {
+                    oldIframe.parentNode.removeChild(oldIframe);
+                }
+                iframe.setAttribute("data-iframe-room-name", roomName);
+            }
+
+
             return new Promise(function (resolve /*, reject  */) {
                 {
                     var iframe = document.createElement("iframe");
@@ -99,7 +128,11 @@ define(["ajax"], function (ajax) {
                     document.body.appendChild(iframe);
 
                     iframe.onload = function () {
+                        iframe.onload = null;
                         finalizePage(url, mydoc);
+
+                        addToTabs(iframe, mydoc);
+
                         resolve();
                     };
 
@@ -118,9 +151,19 @@ define(["ajax"], function (ajax) {
             });
         }
 
+        function firstSubmit(url, data) {
+            ajax.post(url, data).then(function (html) {
+                document.body.innerHTML = mainWindowTemplate;
+                return copyPageToDom(url, html);
+            }).catch(function (error) {
+                window.alert("Error: " + error);
+            });
+        }
+
         return {
             copyHtmlStringToDest: copyHtmlStringToDest,
-            submit: submit
+            submit: submit,
+            firstSubmit: firstSubmit
         };
     }
 );
