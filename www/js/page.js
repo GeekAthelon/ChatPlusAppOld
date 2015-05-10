@@ -2,108 +2,125 @@
 /*global Promise:true */
 
 define(["ajax"], function (ajax) {
+        "use strict";
 
-    "use strict";
-
-    window.documentWriteDestId = "";
-
-    var oldDocumentWrite = document.write;
-    document.write = function (s) {
-        var dest = document.getElementById(window.documentWriteDestId);
-        dest.innerHTML += s;
-    };
-
-    function htmlToDom(html) {
-        return new Promise(function (resolve /*, reject  */) {
-
-            var doc = document.implementation.createHTMLDocument("example");
-            doc.documentElement.innerHTML = html;
-            resolve(doc);
-        });
-    }
-
-    function injectScripts(scripts) {
-        var promises = scripts.map(function (script) {
-
-            if (script.src) {
-                return ajax.get(script.src);
-            }
-
+        function htmlToDom(html) {
             return new Promise(function (resolve /*, reject  */) {
-                resolve(script.code);
+
+                var doc = document.implementation.createHTMLDocument("example");
+                doc.documentElement.innerHTML = html;
+                resolve(doc);
             });
-        });
+        }
 
-        Promise.all(promises).then(function (codes) {
-            codes.forEach(function (code, i) {
-                //code = code.replace(/document.write/g, "DISALLOW DOCUMENT.WRITE");
+        function copyHtmlStringToDest(html, dest) {
+            htmlToDom(html).then(function (doc) {
+                document.body.innerHTML = "";
 
-
-                try {
-                    window.documentWriteDestId = "document_write_" + i;
-                    globalEval(code);
-                } catch (err) {
-                    window.alert("globalEval Error in script: " + scripts[i] + "\r\n" + err);
-                }
-            });
-
-            var DOMContentLoaded_event = document.createEvent("Event");
-            DOMContentLoaded_event.initEvent("DOMContentLoaded", true, true);
-            window.document.dispatchEvent(DOMContentLoaded_event);
-
-            var evt = document.createEvent('Event');
-            evt.initEvent('load', false, false);
-            window.dispatchEvent(evt);
-        });
-    }
-
-    function copyHtmlStringToDest(html, dest) {
-        var scripts = [];
-        htmlToDom(html).then(function (doc) {
-            document.body.innerHTML = "";
-
-            var node = doc.body.firstChild;
-            while (node) {
-                if (node.tagName && node.tagName.toLowerCase() === "script") {
-
-                    var documentWriteDest = document.createElement("span");
-                    documentWriteDest.id = "document_write_" + scripts.length;
-                    dest.appendChild(documentWriteDest);
-
-                    if (node.src) {
-                        scripts.push({src: node.src});
+                var node = doc.body.firstChild;
+                while (node) {
+                    if (node.tagName && node.tagName.toLowerCase() === "script") {
+                        node.parentNode.removeChild(node);
+                    } else if (false && node.tagName && node.tagName.toLowerCase() === "link") {
+                        node.parentNode.removeChild(node);
                     } else {
-                        scripts.push({code: node.textContent});
+                        dest.appendChild(node);
                     }
-                    node.parentNode.removeChild(node);
-                } else if (false && node.tagName && node.tagName.toLowerCase() === "link") {
-                    node.parentNode.removeChild(node);
-                } else {
-                    dest.appendChild(node);
+                    node = doc.body.firstChild;
                 }
-                node = doc.body.firstChild;
+            });
+        }
+
+        function relativeUrlToAbsolute(url, base_url) {
+            var doc = document,
+                old_base = doc.getElementsByTagName('base')[0],
+                old_href = old_base && old_base.href,
+                doc_head = doc.head || doc.getElementsByTagName('head')[0],
+                our_base = old_base || doc_head.appendChild(doc.createElement('base')),
+                resolver = doc.createElement('a'),
+                resolved_url;
+
+            our_base.href = base_url;
+            resolver.href = url;
+            resolved_url = resolver.href; // browser magic at work here
+
+            if (old_base) {
+                old_base.href = old_href;
+            } else {
+                doc_head.removeChild(our_base);
+            }
+            return resolved_url;
+        }
+
+        function finalizePage(baseUrl, doc) {
+            function handleLinkClick(e) {
+                e.preventDefault();
+
+                var link = e.target;
+                while (link.tagName.toLowerCase() !== "a") {
+                    link = link.parentNode;
+                }
+
+                if (!link) {
+                    return;
+                }
+
+                var href = link.href;
+                var url = href.split('?')[0];
+
+                ajax.get(href).then(function (html) {
+                    return copyPageToDom(url, html);
+                }).catch(function (error) {
+                    window.alert("Error: " + error);
+                });
             }
 
-            window.setTimeout(function () {
-                injectScripts(scripts);
-            }, 1000);
+            var links = doc.links;
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i];
+                var oldUrl = link.href;
+                var queryString = oldUrl.split("?")[1];
 
-        }).catch(function (err) {
+                var newUrl = relativeUrlToAbsolute(baseUrl, oldUrl);
+                link.href = newUrl;
+                if (queryString) {
+                    link.href += "?" + queryString;
+                }
+            }
 
-        });
+            doc.body.addEventListener("click", handleLinkClick, false);
+        }
+
+        function copyPageToDom(url, html) {
+            return new Promise(function (resolve /*, reject  */) {
+                {
+                    var iframe = document.createElement("iframe");
+
+                    document.body.appendChild(iframe);
+
+                    iframe.onload = function () {
+                        finalizePage(url, mydoc);
+                        resolve();
+                    };
+
+                    var mydoc = iframe.contentWindow.document;
+                    mydoc.write(html);
+                    mydoc.close();
+                }
+            });
+        }
+
+        function submit(url, data) {
+            ajax.post(url, data).then(function (html) {
+                return copyPageToDom(url, html);
+            }).catch(function (error) {
+                window.alert("Error: " + error);
+            });
+        }
+
+        return {
+            copyHtmlStringToDest: copyHtmlStringToDest,
+            submit: submit
+        };
     }
-
-    function submit(url, data) {
-        ajax.post(url, data).then(function (html) {
-            copyHtmlStringToDest(html, document.body);
-        }).catch(function (error) {
-            window.alert("Error: " + error);
-        });
-    }
-
-    return {
-        copyHtmlStringToDest: copyHtmlStringToDest,
-        submit: submit
-    };
-
-});
+);

@@ -50,9 +50,9 @@ window.Promise = ES6Promise.Promise;
 }());
 
 window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
-    "use stict";
+    "use strict";
 
-    window.alert(errorMsg, url, lineNumber);
+    window.alert(errorMsg + " : " + url + " : " + lineNumber);
 
     // Just let default handler run.
     return false;
