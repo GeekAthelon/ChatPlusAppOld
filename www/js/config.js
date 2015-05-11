@@ -89,3 +89,14 @@ var globalEval = (function () {
 
     // otherwise, globalEval is `undefined` since nothing is returned
 })();
+
+
+function forEachNode(nodelist, cb) {
+    "use strict";
+    var l = nodelist.length;
+
+    for (var i = 0; i < l; i++) {
+        var val = nodelist[i];
+        cb.call(val, val, i, nodelist);
+    }
+}

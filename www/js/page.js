@@ -1,5 +1,6 @@
 /*global define:true */
 /*global Promise:true */
+/*global forEachNode:true */
 
 define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemplate, ajax) {
     "use strict";
@@ -7,7 +8,16 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
     var hyperchat = (function () {
 
         function getRoomName(doc) {
-            return doc.getElementsByName("vqxro")[0].value;
+            var el = doc.getElementsByName("vqxro");
+            if (el.length === 0) {
+                return "<Other>";
+            }
+
+            var roomName = doc.getElementsByName("vqxro")[0].value;
+            if (roomName === "c") {
+                roomName = "<HotList>";
+            }
+            return roomName;
         }
 
         return {
@@ -55,7 +65,7 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
                     var newSrc = baseUrl + "/img/image-placeholder.png";
                     var oldStr;
                     var newStr;
-                    var regex = new RegExp('\n', 'g');
+                    var regex;
                     // Try the three different versions
                     newStr = "src='" + newSrc + "' data-old-src='" + oldSrc + "'";
 
@@ -81,6 +91,7 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
             });
         });
     }
+
 //*****************************************************************************
 
     function htmlToDom(html) {
@@ -177,11 +188,26 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
                     hideIframe(frames[i]);
                 }
 
+                highlightTab(roomName);
+
                 var iframe = document.querySelector("[data-iframe-room-name='" + roomName + "']");
                 resizeIframe(iframe);
             }
 
+            function highlightTab(roomName) {
+                var buttons = document.querySelectorAll("#tab-names [data-room-name]");
+                forEachNode(buttons, function (button) {
+                    button.classList.remove("active");
+                    var buttonRoomName = button.getAttribute("data-room-name");
+
+                    if (buttonRoomName === roomName) {
+                        button.classList.add("active");
+                    }
+                });
+            }
+
             function handleTabButtonClick(e) {
+                /*jshint validthis:true */
                 var roomName = this.getAttribute("data-room-name");
                 showTab(roomName);
             }
@@ -209,7 +235,6 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
             }
 
             var tabsHome = document.getElementById("tab-names");
-
             var roomName = hyperchat.getRoomName(doc);
 
             var button = document.querySelector("#tab-names [data-room-name='" + roomName + "']");
@@ -219,7 +244,6 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
                 button.setAttribute("data-room-name", roomName);
                 button.appendChild(document.createTextNode(roomName));
                 tabsHome.appendChild(button);
-
                 button.addEventListener("click", handleTabButtonClick, false);
             }
 
@@ -255,7 +279,7 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
                 //mydoc.write(html);
                 mydoc.close();
             }).catch(function (err) {
-                alert("Simplify failed: " + err);
+                window.alert("Simplify failed: " + err);
             });
 
         });
@@ -277,7 +301,6 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
     function wireupMainPage() {
         return new Promise(function (resolve /*, reject  */) {
             var settingsButton = document.getElementById("tab-names-settings");
-            settingsButton.evenL
             settingsButton.addEventListener("click", handleSettingsClick, false);
             resolve();
         });
@@ -287,7 +310,7 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
         ajax.post(url, data).then(function (html) {
             document.body.innerHTML = mainWindowTemplate;
             return copyPageToDom(url, html);
-        }).then(function() {
+        }).then(function () {
             return wireupMainPage();
         }).catch(function (error) {
             window.alert("Error: " + error);

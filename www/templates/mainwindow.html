@@ -8,15 +8,14 @@
 
     iframe {
         display: block;
-        border: 1px solid mediumvioletred;
         z-index: 900;
     }
 
     #tab-names {
         display: block;
         width: 100%;
-        background: silver;
-        color: black;
+        background-color: InactiveCaption;
+        color: InactiveCaptionText;
         position: absolute;
         top: 0;
         left: 0;
@@ -32,6 +31,14 @@
         display: inline-block;
         width: 8em;
         text-align: center;
+
+        background-color: ActiveCaption;
+        color: CaptionText;
+    }
+
+    #tab-names button.active {
+        color: ActiveCaption;
+        background-color: CaptionText;
     }
 
     #tab-names #tab-names-settings {
