@@ -23,8 +23,27 @@
         z-index: 1000;
         overflow: visible;
     }
+
+    #tab-names-settings {
+        float: right;
+    }
+
+    #tab-names button {
+        display: inline-block;
+        width: 8em;
+        text-align: center;
+    }
+
+    #tab-names #tab-names-settings {
+        color: red;
+        width: auto;
+        display: inline;
+    }
 </style>
 
 
-<div id="tab-names"></div>
+<div id="tab-names">
+    <button id="tab-names-settings"><i class="fa fa-cogs"></i></button>
+</div>
+
 <div id="room-tabs"></div>

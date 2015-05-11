@@ -269,10 +269,26 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
         });
     }
 
+    function handleSettingsClick(e) {
+        e.preventDefault();
+        window.alert("Settings click!");
+    }
+
+    function wireupMainPage() {
+        return new Promise(function (resolve /*, reject  */) {
+            var settingsButton = document.getElementById("tab-names-settings");
+            settingsButton.evenL
+            settingsButton.addEventListener("click", handleSettingsClick, false);
+            resolve();
+        });
+    }
+
     function firstSubmit(url, data) {
         ajax.post(url, data).then(function (html) {
             document.body.innerHTML = mainWindowTemplate;
             return copyPageToDom(url, html);
+        }).then(function() {
+            return wireupMainPage();
         }).catch(function (error) {
             window.alert("Error: " + error);
         });
