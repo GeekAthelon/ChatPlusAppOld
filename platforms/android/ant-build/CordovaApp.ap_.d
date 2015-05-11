@@ -37,12 +37,16 @@ C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\a
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\templates \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\css\index.css \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\img\image-placeholder.png \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\img\image-placeholder1.png \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\img\logo.png \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\ajax.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\config.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\main.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\page.js \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\simplify-qunit.js \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\tests \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\wireup-login-button.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\wireup-qunit.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib\es6-promise-2.0.1.js \

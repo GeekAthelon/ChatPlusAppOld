@@ -1,7 +1,7 @@
 /*global define:true */
+/*global require:true */
 
 define(["text!html/templates/qunit.html"], function (template) {
-
     "use strict";
 
     function clearTestStatus() {
@@ -27,10 +27,15 @@ define(["text!html/templates/qunit.html"], function (template) {
     }
 
     function handleClick() {
-        document.body.innerHTML = template;
-        QUnit.start();
-        window.sessionStorage.setItem("isTesting", "true");
-        appendStopTest();
+        require([
+            "simplify-qunit",
+        ], function () {
+            document.body.innerHTML = template;
+            QUnit.start();
+            window.sessionStorage.setItem("isTesting", "true");
+            appendStopTest();
+        });
+
     }
 
     function init() {
