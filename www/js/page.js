@@ -106,10 +106,11 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
                 function showTab(roomName) {
                     var frames = document.querySelectorAll("[data-iframe-room-name]");
                     for (var i = 0; i < frames.length; i++) {
-                        frames[i].style.display = "none";
+                        hideIframe(frames[i]);
                     }
 
-                    document.querySelector("[data-iframe-room-name='" + roomName + "']").style.display = "";
+                    var iframe = document.querySelector("[data-iframe-room-name='" + roomName + "']");
+                    resizeIframe(iframe);
                 }
 
                 function handleTabButtonClick(e) {
@@ -117,15 +118,25 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
                     showTab(roomName);
                 }
 
-                function resizeIframe() {
+                function hideIframe(iframe) {
+                    // Under android, we can't use 'display:none' or the thing can't be scrolled
+                    // when we come back to it.
+                    iframe.style.height = "0px";
+                    iframe.style.width = "0px";
+                    iframe.style.top = "-10000px";
+                    iframe.style.borderTop = "none";
+                }
+
+                function resizeIframe(iframe) {
                     var tabHeight = tabsHome.clientHeight;
                     var bodyHeight = document.body.clientHeight;
                     var newHeight = bodyHeight - tabHeight;
 
+                    iframe.style.display = "block";
                     iframe.style.height = newHeight + "px";
                     iframe.style.width = "100%";
                     iframe.style.positon = "absolute";
-                    //iframe.style.top = tabHeight + "px";
+                    iframe.style.top = "0px";
                     iframe.style.borderTop = tabHeight + "px solid green";
                 }
 
@@ -151,7 +162,7 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
 
                 iframe.setAttribute("data-iframe-room-name", roomName);
 
-                resizeIframe();
+                resizeIframe(iframe);
                 showTab(roomName);
             }
 
