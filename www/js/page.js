@@ -17,7 +17,6 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
 
         function htmlToDom(html) {
             return new Promise(function (resolve /*, reject  */) {
-
                 var doc = document.implementation.createHTMLDocument("example");
                 doc.documentElement.innerHTML = html;
                 resolve(doc);
@@ -103,21 +102,57 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
 
         function copyPageToDom(url, html) {
             function addToTabs(iframe, doc) {
+
+                function showTab(roomName) {
+                    var frames = document.querySelectorAll("[data-iframe-room-name]");
+                    for (var i = 0; i < frames.length; i++) {
+                        frames[i].style.display = "none";
+                    }
+
+                    document.querySelector("[data-iframe-room-name='" + roomName + "']").style.display = "";
+                }
+
+                function handleTabButtonClick(e) {
+                    var roomName = this.getAttribute("data-room-name");
+                    showTab(roomName);
+                }
+
+                function resizeIframe() {
+                    var tabHeight = tabsHome.clientHeight;
+                    var bodyHeight = document.body.clientHeight;
+                    var newHeight = bodyHeight - tabHeight;
+
+                    iframe.style.height = newHeight + "px";
+                    iframe.style.width = "100%";
+                    iframe.style.positon = "absolute";
+                    //iframe.style.top = tabHeight + "px";
+                    iframe.style.borderTop = tabHeight + "px solid green";
+                }
+
+                var tabsHome = document.getElementById("tab-names");
+
                 var roomName = hyperchat.getRoomName(doc);
 
-                var li = document.querySelector("#tab-names [data-room-name='" + roomName + "']");
-                if (!li) {
-                    li = document.createElement("li");
-                    li.setAttribute("data-room-name", roomName);
-                    li.appendChild(document.createTextNode(roomName));
-                    document.getElementById("tab-names").appendChild(li);
+                var button = document.querySelector("#tab-names [data-room-name='" + roomName + "']");
+                if (!button) {
+                    button = document.createElement("button");
+                    button.type = "button";
+                    button.setAttribute("data-room-name", roomName);
+                    button.appendChild(document.createTextNode(roomName));
+                    tabsHome.appendChild(button);
+
+                    button.addEventListener("click", handleTabButtonClick, false);
                 }
 
                 var oldIframe = document.querySelector("[data-iframe-room-name='" + roomName + "']");
                 if (oldIframe) {
                     oldIframe.parentNode.removeChild(oldIframe);
                 }
+
                 iframe.setAttribute("data-iframe-room-name", roomName);
+
+                resizeIframe();
+                showTab(roomName);
             }
 
 
