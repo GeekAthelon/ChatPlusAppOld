@@ -118,7 +118,6 @@
     }
 </style>
 
-
 <div id="tab-names">
     <span id="tab-names-settings"><i class="fa fa-cogs touch-icon"></i></span>
 </div>
@@ -131,20 +130,6 @@
         <i id="settings-tab-close-button" class="fa fa-close"></i>
     </header>
     <ul>
-        <li class="roundedTwo">
-            <input type="checkbox" name="enable-graphic-icons" id="enable-graphic-icons">
-            <label for="enable-graphic-icons"><span></span>Change graphics to icons</label>
-        </li>
-
-        <li class="roundedTwo">
-            <input type="checkbox" name="enable-graphic-suppress" id="enable-graphic-suppress">
-            <label for="enable-graphic-suppress"><span></span>Suppress graphics entirely</label>
-        </li>
-
-        <li class="roundedTwo">
-            <input type="checkbox" name="enable-remove-center" id="enable-remove-center">
-            <label for="enable-remove-center"><span></span>Remove the <code>&lt;CENTER&gt;</code> element</label>
-        </li>
     </ul>
 
     <button type="button" id="settings-tab-save-button">
@@ -152,3 +137,11 @@
         Save
     </button>
 </form>
+
+<script type="text/html" id="settings-bool-template">
+    <li>
+        <input type="checkbox" name="{key}" id="{key}">
+        <label for="{key}"><span></span></label>
+        <label for="{key}">{description}</label>
+    </li>
+</script>

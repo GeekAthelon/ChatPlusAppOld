@@ -84,7 +84,10 @@ C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\a
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\main.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\page.js \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\setting-manager.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\simplify-qunit.js \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\stringFormat-qunit.js \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\stringFormat.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\tests \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\wireup-login-button.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\wireup-qunit.js \
