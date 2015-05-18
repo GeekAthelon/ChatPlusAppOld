@@ -293,15 +293,34 @@ define(["text!html/templates/mainwindow.html", "ajax"], function (mainWindowTemp
         });
     }
 
+    function closeSettings() {
+        var settingsTab = document.getElementById("settings-tab");
+        settingsTab.style.display = "none";
+    }
+
+    function handleSettingsCloseClick(e) {
+        e.preventDefault();
+        closeSettings();
+    }
+
+    function handleSettingsSaveClick(e) {
+        window.alert("Saving!");
+        e.preventDefault();
+        closeSettings();
+    }
+
     function handleSettingsClick(e) {
         e.preventDefault();
-        window.alert("Settings click!");
+        var settingsTab = document.getElementById("settings-tab");
+        settingsTab.style.display = "block";
     }
 
     function wireupMainPage() {
         return new Promise(function (resolve /*, reject  */) {
-            var settingsButton = document.getElementById("tab-names-settings");
-            settingsButton.addEventListener("click", handleSettingsClick, false);
+
+            document.getElementById("tab-names-settings").addEventListener("click", handleSettingsClick, false);
+            document.getElementById("settings-tab-close-button").addEventListener("click", handleSettingsCloseClick, false);
+            document.getElementById("settings-tab-save-button").addEventListener("click", handleSettingsSaveClick, false);
             resolve();
         });
     }

@@ -8,7 +8,7 @@
 
     iframe {
         display: block;
-        z-index: 900;
+        z-index: 300;
     }
 
     #tab-names {
@@ -19,7 +19,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 1000;
+        z-index: 500;
         overflow: visible;
     }
 
@@ -58,6 +58,8 @@
     }
 
     #settings-tab {
+        z-index: 800;
+        display: none;
         width: 90%;
         height: 90%;
         background-color: Window;
@@ -82,12 +84,20 @@
         display:inline-block;
     }
 
+
+    .touch-icon {
+        font-family: FontAwesome;
+        display:inline-block;
+        font-size: 32px;
+        width: 32px;
+    }
+
     #settings-tab input[type="checkbox"] + label span::after {
         font-family: FontAwesome;
         margin-right: 0.25em;
         display:inline-block;
-        font-size: 46px;
-        width: 46px;
+        font-size: 32px;
+        width: 32px;
         content: "\F096";
     }
 
@@ -97,18 +107,30 @@
     #settings-tab input[type="checkbox"]:checked + label span::after {
         content: "\F046";
     }
+
+    #settings-tab header {
+        font-size: 32px;
+        background-color: dodgerblue;
+        color: lavenderblush;
+    }
+
+    #settings-tab .fa-close {
+        float: right;
+    }
 </style>
 
 
 <div id="tab-names">
-    <button id="tab-names-settings"><i class="fa fa-cogs"></i></button>
+    <button id="tab-names-settings"><i class="fa fa-cogs touch-icon"></i></button>
 </div>
 
 <div id="room-tabs"></div>
 
 <form action="#" id="settings-tab" class="centered">
-    <h1>Settings</h1>
-    <hr>
+    <header>
+        Settings
+        <i id="settings-tab-close-button" class="fa fa-close"></i>
+    </header>
     <ul>
         <li class="roundedTwo">
             <input type="checkbox" name="enable-graphic-icons" id="enable-graphic-icons">
@@ -125,4 +147,9 @@
             <label for="enable-remove-center"><span></span>Remove the <code>&lt;CENTER&gt;</code> element</label>
         </li>
     </ul>
+
+    <button type="button" id="settings-tab-save-button">
+        <i class="fa fa-save"></i>
+        Save
+    </button>
 </form>
