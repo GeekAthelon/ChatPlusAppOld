@@ -88,7 +88,7 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
 
                     resolve(html);
                 }).catch(function (err) {
-                    window.alert("setImagesInHtmlStringToBlank error: " + err);
+                    window.alert("setImagesInHtmlStringToBlank error: " + JSON.stringify(err));
                 });
             });
         }
@@ -306,9 +306,22 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
         }
 
         function handleSettingsSaveClick(e) {
-            window.alert("Saving!");
             e.preventDefault();
-            closeSettings();
+
+            settingManager.getSettingsList().then(function (settings) {
+
+                Object.keys(settings).forEach(function (key, i) {
+                    var item = settings[key];
+                    if (item.type === "bool") {
+                        item.value = document.getElementById(key).checked;
+                    }
+                });
+
+                settingManager.saveSettingsList(settings);
+                closeSettings();
+            }).catch(function(err) {
+                window.alert("handleSettingsSaveClick: " + err);
+            });
         }
 
         function handleSettingsClick(e) {
@@ -317,20 +330,18 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
             var promise = settingManager.getSettingsList();
 
             settingManager.getSettingsList().then(function (settings) {
-
                 var ul = document.querySelector("#settings-tab ul");
                 ul.innerHTML = "";
                 var listHtml = [];
 
-                var keys = Object.keys(settings);
-
-                keys.forEach(function (key, i) {
+                Object.keys(settings).forEach(function (key, i) {
                     var item = settings[key];
                     var template = document.getElementById("settings-bool-template").innerHTML;
 
                     var s = stringFormat(template, {
                             key: key,
-                            description: item.description
+                            description: item.description,
+                            checked: item.value ? "checked" : ""
                         }
                     );
 
