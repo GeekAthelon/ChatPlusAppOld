@@ -47,49 +47,61 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
                     return bits.join("/");
                 }());
 
-                htmlToDom(html).then(function (el) {
+                settingManager.getSettingsList().then(function (settings) {
 
-                    // the `html` may not refer to a complete DOM document
-                    // so the `el` element will, most likely, bear little
-                    // resemblance to our original HTML.
-                    // The images, however, do come out.
+                    var mangleGraphics = settings.enableGraphicIcons.value || settings.enableGraphicSuppress.value;
 
-                    var hash = {};
-                    var images = el.getElementsByTagName("img");
-                    for (var i = 0; i < images.length; i++) {
-                        var img = images[i];
-                        hash[img.src] = img.alt;
-                        //img.setAttribute("data-old-src", img.src);
+                    if (!mangleGraphics) {
+                        resolve(html);
+                        return;
                     }
 
-                    Object.keys(hash).forEach(function (oldSrc) {
-                        var newSrc = baseUrl + "/img/image-placeholder.png";
-                        var oldStr;
-                        var newStr;
-                        var regex;
-                        // Try the three different versions
-                        newStr = "src='" + newSrc + "' data-old-src='" + oldSrc + "'";
+                    htmlToDom(html).then(function (el) {
 
-                        // handle src=url
-                        oldStr = "src=" + oldSrc;
-                        regex = new RegExp(oldStr, 'g');
-                        html = html.replace(regex, newStr);
+                        // the `html` may not refer to a complete DOM document
+                        // so the `el` element will, most likely, bear little
+                        // resemblance to our original HTML.
+                        // The images, however, do come out.
 
-                        // handle src='url'
-                        oldStr = "src='" + oldSrc + "'";
-                        regex = new RegExp(oldStr, 'g');
-                        html = html.replace(regex, newStr);
+                        var hash = {};
+                        var images = el.getElementsByTagName("img");
+                        for (var i = 0; i < images.length; i++) {
+                            var img = images[i];
+                            hash[img.src] = img.alt;
+                            //img.setAttribute("data-old-src", img.src);
+                        }
 
-                        // handle src="url"
-                        oldStr = "src=\"" + oldSrc + "\"";
-                        regex = new RegExp(oldStr, 'g');
-                        html = html.replace(regex, newStr);
+                        Object.keys(hash).forEach(function (oldSrc) {
+                            var newSrc = baseUrl + "/img/image-placeholder.png";
+                            var oldStr;
+                            var newStr;
+                            var regex;
+                            // Try the three different versions
+                            newStr = "src='" + newSrc + "' data-old-src='" + oldSrc + "'";
+
+                            // handle src=url
+                            oldStr = "src=" + oldSrc;
+                            regex = new RegExp(oldStr, 'g');
+                            html = html.replace(regex, newStr);
+
+                            // handle src='url'
+                            oldStr = "src='" + oldSrc + "'";
+                            regex = new RegExp(oldStr, 'g');
+                            html = html.replace(regex, newStr);
+
+                            // handle src="url"
+                            oldStr = "src=\"" + oldSrc + "\"";
+                            regex = new RegExp(oldStr, 'g');
+                            html = html.replace(regex, newStr);
+                        });
+
+                        resolve(html);
+                    }).catch(function (err) {
+                        window.alert("setImagesInHtmlStringToBlank error: " + JSON.stringify(err));
                     });
 
-                    resolve(html);
-                }).catch(function (err) {
-                    window.alert("setImagesInHtmlStringToBlank error: " + JSON.stringify(err));
                 });
+
             });
         }
 
@@ -319,15 +331,13 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
 
                 settingManager.saveSettingsList(settings);
                 closeSettings();
-            }).catch(function(err) {
+            }).catch(function (err) {
                 window.alert("handleSettingsSaveClick: " + err);
             });
         }
 
         function handleSettingsClick(e) {
             e.preventDefault();
-
-            var promise = settingManager.getSettingsList();
 
             settingManager.getSettingsList().then(function (settings) {
                 var ul = document.querySelector("#settings-tab ul");
