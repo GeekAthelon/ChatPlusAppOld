@@ -29,10 +29,49 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
 
         //***************************************************************************
         function setImagesToBlank(html) {
-            
-            function mangleImageElements(baseUrl, doc, html) {
+
+            function doReplace(html, oldStr, newStr) {
+                var regex = new RegExp(oldStr, 'g');
+                html = html.replace(regex, newStr);
+                return html;
+            }
+
+            function mangleBackgroundAttributes(baseUrl, doc, html) {
+                var elementsWithBackground = doc.querySelectorAll("[background]");
+
                 var hash = {};
+                for (var i = 0; i < elementsWithBackground.length; i++) {
+                    var el = elementsWithBackground[i];
+                    var val = el.getAttribute("background");
+                    hash[val] = val;
+                }
+
+                Object.keys(hash).forEach(function (oldSrc) {
+                    var oldStr;
+                    var newStr;
+
+                    // Try the three different versions
+                    newStr = "data-old-background='" + oldSrc + "'";
+
+                    // handle src=url
+                    oldStr = "background=" + oldSrc;
+                    html = doReplace(html, oldStr, newStr);
+
+                    // handle src='url'
+                    oldStr = "background='" + oldSrc + "'";
+                    html = doReplace(html, oldStr, newStr);
+
+                    // handle src="url"
+                    oldStr = "background=\"" + oldSrc + "\"";
+                    html = doReplace(html, oldStr, newStr);
+                });
+
+                return html;
+            }
+
+            function mangleImageElements(baseUrl, doc, html) {
                 var images = doc.getElementsByTagName("img");
+                var hash = {};
                 for (var i = 0; i < images.length; i++) {
                     var img = images[i];
                     hash[img.src] = img.alt;
@@ -43,29 +82,25 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
                     var newSrc = baseUrl + "/img/image-placeholder.png";
                     var oldStr;
                     var newStr;
-                    var regex;
+
                     // Try the three different versions
                     newStr = "src='" + newSrc + "' data-old-src='" + oldSrc + "'";
 
                     // handle src=url
                     oldStr = "src=" + oldSrc;
-                    regex = new RegExp(oldStr, 'g');
-                    html = html.replace(regex, newStr);
+                    html = doReplace(html, oldStr, newStr);
 
                     // handle src='url'
                     oldStr = "src='" + oldSrc + "'";
-                    regex = new RegExp(oldStr, 'g');
-                    html = html.replace(regex, newStr);
+                    html = doReplace(html, oldStr, newStr);
 
                     // handle src="url"
                     oldStr = "src=\"" + oldSrc + "\"";
-                    regex = new RegExp(oldStr, 'g');
-                    html = html.replace(regex, newStr);
+                    html = doReplace(html, oldStr, newStr);
                 });
 
                 return html;
             }
-
 
             // Yes, yes I know that normally it would be far better to simply
             // use DOM methods replace the 'src' attribute.  However, that would
@@ -101,7 +136,7 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
                         // The images, however, do come out.
 
                         html = mangleImageElements(baseUrl, doc, html);
-
+                        html = mangleBackgroundAttributes(baseUrl, doc, html);
                         resolve(html);
                     }).catch(function (err) {
                         window.alert("setImagesInHtmlStringToBlank error: " + err);
@@ -113,6 +148,17 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
         }
 
 //*****************************************************************************
+
+        function collapseWidths(doc, settings) {
+            var elements = doc.querySelectorAll("table, [data-old-background]");
+            forEachNode(elements, function (element) {
+               if (element.tagName.toLowerCase() === "table") {
+                   element.width = "";
+                   element.border = "0px";
+               }
+            });
+        }
+
         function mangleImages(doc, settings) {
 
             // Static node list, not a fixed one.
@@ -337,11 +383,12 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
 
                         addToTabs(iframe, mydoc);
 
-                        mangleImages(mydoc, settings);
-
                         if (settings.enableRemoveCenter.value) {
                             removeCenterElement(mydoc, settings);
                         }
+
+                        mangleImages(mydoc, settings);
+                        collapseWidths(mydoc, settings);
 
                         resolve();
                     };
