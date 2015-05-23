@@ -106,6 +106,46 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
         }
 
 //*****************************************************************************
+        function mangleImages(doc, settings) {
+
+            // Static node list, not a fixed one.
+            var images = doc.querySelectorAll("img");
+            var altTemplate = document.getElementById("image-alt-text-template").innerHTML;
+
+            forEachNode(images, function (image) {
+                var span;
+                var template;
+                if (image.alt) {
+                    template = altTemplate;
+                    span = document.createElement("span");
+                    span.innerHTML = stringFormat(template, {
+                        text: image.alt
+                    });
+
+                    image.parentNode.replaceChild(span.firstElementChild, image);
+                    return;
+                }
+
+                if (settings.enableGraphicSuppress.value) {
+                    image.parentNode.removeChild(image);
+                    return;
+                }
+
+            });
+        }
+
+        function removeCenterElement(doc, settings) {
+            var centerElements = doc.querySelectorAll("center");
+
+            forEachNode(centerElements, function (centerElement) {
+                var div = document.createElement("div");
+                while(centerElement.firstChild) {
+                    div.appendChild(centerElement.firstChild);
+                }
+
+                centerElement.parentNode.replaceChild(div, centerElement);
+            });
+        }
 
         function htmlToDom(html) {
             return new Promise(function (resolve /*, reject  */) {
@@ -273,7 +313,13 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
 
 
             return new Promise(function (resolve /*, reject  */) {
-                setImagesToBlank(html).then(function (newHtml) {
+
+                var settings;
+
+                settingManager.getSettingsList().then(function (isettings) {
+                    settings = isettings;
+                    return setImagesToBlank(html);
+                }).then(function (newHtml) {
                     var iframe = document.createElement("iframe");
 
                     document.body.appendChild(iframe);
@@ -283,6 +329,12 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
                         finalizePage(url, mydoc);
 
                         addToTabs(iframe, mydoc);
+
+                        mangleImages(mydoc, settings);
+
+                        if (settings.enableRemoveCenter.value) {
+                            removeCenterElement(mydoc, settings);
+                        }
 
                         resolve();
                     };
