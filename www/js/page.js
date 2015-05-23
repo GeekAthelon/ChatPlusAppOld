@@ -29,6 +29,43 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
 
         //***************************************************************************
         function setImagesToBlank(html) {
+            
+            function mangleImageElements(baseUrl, doc, html) {
+                var hash = {};
+                var images = doc.getElementsByTagName("img");
+                for (var i = 0; i < images.length; i++) {
+                    var img = images[i];
+                    hash[img.src] = img.alt;
+                    //img.setAttribute("data-old-src", img.src);
+                }
+
+                Object.keys(hash).forEach(function (oldSrc) {
+                    var newSrc = baseUrl + "/img/image-placeholder.png";
+                    var oldStr;
+                    var newStr;
+                    var regex;
+                    // Try the three different versions
+                    newStr = "src='" + newSrc + "' data-old-src='" + oldSrc + "'";
+
+                    // handle src=url
+                    oldStr = "src=" + oldSrc;
+                    regex = new RegExp(oldStr, 'g');
+                    html = html.replace(regex, newStr);
+
+                    // handle src='url'
+                    oldStr = "src='" + oldSrc + "'";
+                    regex = new RegExp(oldStr, 'g');
+                    html = html.replace(regex, newStr);
+
+                    // handle src="url"
+                    oldStr = "src=\"" + oldSrc + "\"";
+                    regex = new RegExp(oldStr, 'g');
+                    html = html.replace(regex, newStr);
+                });
+
+                return html;
+            }
+
 
             // Yes, yes I know that normally it would be far better to simply
             // use DOM methods replace the 'src' attribute.  However, that would
@@ -56,48 +93,18 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
                         return;
                     }
 
-                    htmlToDom(html).then(function (el) {
+                    htmlToDom(html).then(function (doc) {
 
                         // the `html` may not refer to a complete DOM document
-                        // so the `el` element will, most likely, bear little
+                        // so the `doc` element will, most likely, bear little
                         // resemblance to our original HTML.
                         // The images, however, do come out.
 
-                        var hash = {};
-                        var images = el.getElementsByTagName("img");
-                        for (var i = 0; i < images.length; i++) {
-                            var img = images[i];
-                            hash[img.src] = img.alt;
-                            //img.setAttribute("data-old-src", img.src);
-                        }
-
-                        Object.keys(hash).forEach(function (oldSrc) {
-                            var newSrc = baseUrl + "/img/image-placeholder.png";
-                            var oldStr;
-                            var newStr;
-                            var regex;
-                            // Try the three different versions
-                            newStr = "src='" + newSrc + "' data-old-src='" + oldSrc + "'";
-
-                            // handle src=url
-                            oldStr = "src=" + oldSrc;
-                            regex = new RegExp(oldStr, 'g');
-                            html = html.replace(regex, newStr);
-
-                            // handle src='url'
-                            oldStr = "src='" + oldSrc + "'";
-                            regex = new RegExp(oldStr, 'g');
-                            html = html.replace(regex, newStr);
-
-                            // handle src="url"
-                            oldStr = "src=\"" + oldSrc + "\"";
-                            regex = new RegExp(oldStr, 'g');
-                            html = html.replace(regex, newStr);
-                        });
+                        html = mangleImageElements(baseUrl, doc, html);
 
                         resolve(html);
                     }).catch(function (err) {
-                        window.alert("setImagesInHtmlStringToBlank error: " + JSON.stringify(err));
+                        window.alert("setImagesInHtmlStringToBlank error: " + err);
                     });
 
                 });
