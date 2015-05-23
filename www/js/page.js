@@ -2,8 +2,9 @@
 /*global Promise:true */
 /*global forEachNode:true */
 
-define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "stringFormat", "hyperchat"],
-    function (mainWindowTemplate, ajax, settingManager, stringFormat, hyperchat) {
+define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "stringFormat", "hyperchat",
+        "rework-chatroom"],
+    function (mainWindowTemplate, ajax, settingManager, stringFormat, hyperchat, chatroom) {
         "use strict";
 
         //***************************************************************************
@@ -370,7 +371,7 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
                         collapseWidths(mydoc, settings);
 
                         if (hyperchat.isChatRoom(mydoc)) {
-                            window.alert("Is a ChatRoom");
+                            chatroom.upgrade();
                         }
 
                         resolve();

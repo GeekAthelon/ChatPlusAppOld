@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57b0153c-c7de-4847-acb1-55bd11a84954" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/CordovaApp.ap_.d" afterPath="$PROJECT_DIR$/platforms/android/ant-build/CordovaApp.ap_.d" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/build.prop" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/build.prop" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/build.prop" afterPath="$PROJECT_DIR$/platforms/android/ant-build/build.prop" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/page.js" afterPath="$PROJECT_DIR$/www/js/page.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ChatPlus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,8 +82,8 @@
       <file leaf-file-name="page.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/page.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.310345">
-              <caret line="4" column="100" selection-start-line="4" selection-start-column="91" selection-end-line="4" selection-end-column="100" />
+            <state vertical-scroll-proportion="-12.413794">
+              <caret line="373" column="47" selection-start-line="373" selection-start-column="47" selection-end-line="373" selection-end-column="47" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -95,11 +91,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hyperchat.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="hyperchat.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/hyperchat.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8081991">
-              <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rework-chatroom.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/js/rework-chatroom.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.38653">
+              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -151,8 +159,9 @@
         <option value="$PROJECT_DIR$/www/js/config.js" />
         <option value="$PROJECT_DIR$/www/js/setting-manager.js" />
         <option value="$PROJECT_DIR$/www/templates/mainwindow.html" />
-        <option value="$PROJECT_DIR$/www/js/page.js" />
         <option value="$PROJECT_DIR$/www/js/hyperchat.js" />
+        <option value="$PROJECT_DIR$/www/js/page.js" />
+        <option value="$PROJECT_DIR$/www/js/rework-chatroom.js" />
       </list>
     </option>
   </component>
@@ -398,13 +407,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/wireup-qunit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -797,20 +799,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/page.js">
+    <entry file="file://$PROJECT_DIR$/www/js/hyperchat.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.310345">
-          <caret line="4" column="100" selection-start-line="4" selection-start-column="91" selection-end-line="4" selection-end-column="100" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/hyperchat.js">
+    <entry file="file://$PROJECT_DIR$/www/js/page.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8081991">
-          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+        <state vertical-scroll-proportion="-12.413794">
+          <caret line="373" column="47" selection-start-line="373" selection-start-column="47" selection-end-line="373" selection-end-column="47" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/rework-chatroom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38653">
+          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
