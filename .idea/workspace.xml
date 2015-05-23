@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57b0153c-c7de-4847-acb1-55bd11a84954" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/CordovaApp.ap_.d" afterPath="$PROJECT_DIR$/platforms/android/ant-build/CordovaApp.ap_.d" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/build.prop" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/ant-build/build.prop" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/ant-build/build.prop" afterPath="$PROJECT_DIR$/platforms/android/ant-build/build.prop" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/page.js" afterPath="$PROJECT_DIR$/www/js/page.js" />
@@ -82,11 +83,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="page.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/page.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.75402635">
-              <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+            <state vertical-scroll-proportion="-3.310345">
+              <caret line="4" column="100" selection-start-line="4" selection-start-column="91" selection-end-line="4" selection-end-column="100" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hyperchat.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/js/hyperchat.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8081991">
+              <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -100,45 +113,6 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="simplify-qunit.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/simplify-qunit.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <marker date="1431353300489" expanded="true" signature="395:417" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="474:496" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="561:583" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="606:658" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="775:827" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="944:996" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="1113:1165" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="1282:1334" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="1463:1485" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="1542:1564" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="1623:1645" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="1668:1720" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="1837:1889" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="2006:2058" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="2175:2227" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="2344:2396" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="2538:2560" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="2617:2639" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="2698:2720" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="2756:2808" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="2925:2977" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="3094:3146" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="3263:3315" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="3432:3484" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="3613:3635" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="3699:3711" placeholder="..." />
-                <marker date="1431353300489" expanded="true" signature="3806:3818" placeholder="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -178,6 +152,7 @@
         <option value="$PROJECT_DIR$/www/js/setting-manager.js" />
         <option value="$PROJECT_DIR$/www/templates/mainwindow.html" />
         <option value="$PROJECT_DIR$/www/js/page.js" />
+        <option value="$PROJECT_DIR$/www/js/hyperchat.js" />
       </list>
     </option>
   </component>
@@ -370,7 +345,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34470046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34470046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24920969" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -423,13 +398,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/js/wireup-login-button.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -748,18 +716,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="115" column="1" selection-start-line="115" selection-start-column="1" selection-end-line="115" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/simplify-qunit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.6881406">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1431353300489" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/setting-manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="34" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="34" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/mainwindow.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.636364">
+          <caret line="150" column="110" selection-start-line="150" selection-start-column="110" selection-end-line="150" selection-end-column="110" />
           <folding />
         </state>
       </provider>
@@ -774,65 +789,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/simplify-qunit.js">
+    <entry file="file://$PROJECT_DIR$/www/js/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1431353300489" expanded="true" signature="395:417" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="474:496" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="561:583" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="606:658" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="775:827" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="944:996" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="1113:1165" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="1282:1334" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="1463:1485" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="1542:1564" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="1623:1645" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="1668:1720" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="1837:1889" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="2006:2058" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="2175:2227" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="2344:2396" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="2538:2560" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="2617:2639" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="2698:2720" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="2756:2808" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="2925:2977" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="3094:3146" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="3263:3315" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="3432:3484" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="3613:3635" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="3699:3711" placeholder="..." />
-            <marker date="1431353300489" expanded="true" signature="3806:3818" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/mainwindow.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.636364">
-          <caret line="150" column="110" selection-start-line="150" selection-start-column="110" selection-end-line="150" selection-end-column="110" />
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/setting-manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="34" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="34" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/page.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75402635">
-          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+        <state vertical-scroll-proportion="-3.310345">
+          <caret line="4" column="100" selection-start-line="4" selection-start-column="91" selection-end-line="4" selection-end-column="100" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/hyperchat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8081991">
+          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

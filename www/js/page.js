@@ -2,30 +2,9 @@
 /*global Promise:true */
 /*global forEachNode:true */
 
-define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "stringFormat"],
-    function (mainWindowTemplate, ajax, settingManager, stringFormat) {
+define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "stringFormat", "hyperchat"],
+    function (mainWindowTemplate, ajax, settingManager, stringFormat, hyperchat) {
         "use strict";
-
-        var hyperchat = (function () {
-
-            function getRoomName(doc) {
-                var el = doc.getElementsByName("vqxro");
-                if (el.length === 0) {
-                    return "<Other>";
-                }
-
-                var roomName = doc.getElementsByName("vqxro")[0].value;
-                if (roomName === "c") {
-                    roomName = "<HotList>";
-                }
-                return roomName;
-            }
-
-            return {
-                getRoomName: getRoomName
-            };
-        }());
-
 
         //***************************************************************************
         function setImagesToBlank(html) {
@@ -389,6 +368,10 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
 
                         mangleImages(mydoc, settings);
                         collapseWidths(mydoc, settings);
+
+                        if (hyperchat.isChatRoom(mydoc)) {
+                            window.alert("Is a ChatRoom");
+                        }
 
                         resolve();
                     };

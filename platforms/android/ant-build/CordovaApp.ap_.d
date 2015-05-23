@@ -81,6 +81,7 @@ C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\a
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\img\logo.png \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\ajax.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\config.js \
+C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\hyperchat.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\lib \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\main.js \
 C:\Users\jjs\Desktop\Network\WebTest\EasyPHP\www\ChatPlusApp\platforms\android\assets\www\js\page.js \
