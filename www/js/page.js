@@ -371,7 +371,7 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
                         collapseWidths(mydoc, settings);
 
                         if (hyperchat.isChatRoom(mydoc)) {
-                            chatroom.upgrade();
+                            chatroom.upgrade(mydoc, settings);
                         }
 
                         resolve();

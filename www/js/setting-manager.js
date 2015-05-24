@@ -22,6 +22,7 @@ define([], function () {
     addSetting("enableGraphicIcons", "true", "bool", "Change graphics to icons");
     addSetting("enableGraphicSuppress", "true", "bool", "Suppress graphics entirely");
     addSetting("enableRemoveCenter", "true", "bool", "Block elements left instead of centering them.");
+    addSetting("decolorizeNicks", "true", "bool", "Remove colors from nicknames for readability");
 
     function getItem(key, defaultValue) {
         return new Promise(function (resolve /*, reject  */) {
