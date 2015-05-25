@@ -1,10 +1,24 @@
 /*global define:true */
 /*global Promise:true */
 /*global forEachNode:true */
+/*global less */
 
-define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "stringFormat", "hyperchat",
-        "rework-chatroom"],
-    function (mainWindowTemplate, ajax, settingManager, stringFormat, hyperchat, chatroom) {
+define([
+        "text!html/templates/mainwindow.html",
+        "text!html/css/hyperchat.less",
+        "ajax",
+        "setting-manager",
+        "stringFormat",
+        "hyperchat",
+        "rework-chatroom"
+    ],
+    function (mainWindowTemplate,
+              hyperChatCss,
+              ajax,
+              settingManager,
+              stringFormat,
+              hyperchat,
+              chatroom) {
         "use strict";
 
         //***************************************************************************
@@ -132,10 +146,10 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
         function collapseWidths(doc, settings) {
             var elements = doc.querySelectorAll("table, [data-old-background]");
             forEachNode(elements, function (element) {
-               if (element.tagName.toLowerCase() === "table") {
-                   element.width = "";
-                   element.border = "0px";
-               }
+                if (element.tagName.toLowerCase() === "table") {
+                    element.width = "";
+                    element.border = "0px";
+                }
             });
         }
 
@@ -172,7 +186,7 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
 
             forEachNode(centerElements, function (centerElement) {
                 var div = document.createElement("div");
-                while(centerElement.firstChild) {
+                while (centerElement.firstChild) {
                     div.appendChild(centerElement.firstChild);
                 }
 
@@ -348,9 +362,14 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
             return new Promise(function (resolve /*, reject  */) {
 
                 var settings;
+                var cssText;
 
                 settingManager.getSettingsList().then(function (isettings) {
                     settings = isettings;
+                }).then(function () {
+                    return less.render(hyperChatCss, window.lessOptions);
+                }).then(function (lessOutput) {
+                    cssText = lessOutput;
                     return setImagesToBlank(html);
                 }).then(function (newHtml) {
                     var iframe = document.createElement("iframe");
@@ -367,8 +386,12 @@ define(["text!html/templates/mainwindow.html", "ajax", "setting-manager", "strin
                             removeCenterElement(mydoc, settings);
                         }
 
-                        mangleImages(mydoc, settings);
-                        collapseWidths(mydoc, settings);
+
+                        if (hyperchat.isSoiPage(mydoc)) {
+                            mangleImages(mydoc, settings);
+                            collapseWidths(mydoc, settings);
+                            hyperchat.injectStyleRule(mydoc, cssText.css);
+                        }
 
                         if (hyperchat.isChatRoom(mydoc)) {
                             chatroom.upgrade(mydoc, settings);

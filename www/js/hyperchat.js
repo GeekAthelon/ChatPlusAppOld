@@ -5,6 +5,17 @@ define([], function () {
 
     var hyperchat = (function () {
 
+        function injectStyleRule(doc, cssText) {
+            var css = doc.createElement("style");
+            css.type = "text/css";
+            if("textContent" in css) {
+                css.textContent = cssText;
+            } else {
+                css.innerText = cssText;
+            }
+            doc.body.appendChild(css);
+        }
+
         function getRoomName(doc) {
             var el = doc.getElementsByName("vqxro");
             if (el.length === 0) {
@@ -24,9 +35,15 @@ define([], function () {
             return !!chatBoxTo;
         }
 
+        function isSoiPage(doc) {
+            return isChatRoom(doc);
+        }
+
         return {
             getRoomName: getRoomName,
-            isChatRoom: isChatRoom
+            isSoiPage: isSoiPage,
+            isChatRoom: isChatRoom,
+            injectStyleRule: injectStyleRule
         };
     }());
 

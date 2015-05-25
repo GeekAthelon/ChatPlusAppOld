@@ -19,7 +19,7 @@ define([], function () {
 
         var target = e.target;
         while(target) {
-            if (target.classList && target.classList.contains("cp-nickname")) {
+            if (target.classList && target.classList.contains("cp-chatroom-nickname")) {
                 break;
             }
             target = target.parentNode;
@@ -48,7 +48,7 @@ define([], function () {
             }
 
             var symbol = doc.createElement("span");
-            symbol.classList.add("cp-nickname");
+            symbol.classList.add("cp-chatroom-nickname");
             symbol.innerHTML="&#9660;&nbsp;" + clone.innerHTML;
 
             marker.style.display = "none";
