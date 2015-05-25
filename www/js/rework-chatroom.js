@@ -5,7 +5,13 @@ define([], function () {
     "use strict";
 
     function getChatMarkers(doc) {
-        var markers =  doc.querySelectorAll("hr + i + a ~ br ~ b");
+        //doc.querySelectorAll("hr + i + a ~ br ~ b");
+        // Because the text below the chat box can be EXTREMELY mangled, the browsers will
+        // sometimes put really weird closing tags after the HR element, which means the
+        // query selector breaks.
+        //
+
+        var markers =  doc.querySelectorAll("i + a ~ br ~ b");
         return markers;
     }
 
