@@ -4,6 +4,21 @@
 define([], function () {
     "use strict";
 
+    function getQueryParams(qs) {
+        qs = qs.split("+").join(" ");
+
+        var params = {}, tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+
+        while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])]
+                = decodeURIComponent(tokens[2]);
+        }
+
+        return params;
+    }
+
+
     function serialize(form) {
         return new Promise(function (resolve, reject) {
 
@@ -71,6 +86,12 @@ define([], function () {
 
 
     function post(url, data) {
+
+        var query = getQueryParams(document.location.search);
+        if (query.proxy_url) {
+            url = query.proxy_url + "?url=" + url + "&mode=native&send_cookies=1&send_session=0&user_agent=nada";
+        }
+
         return new Promise(function (resolve, reject) {
 
             var xhr = new XMLHttpRequest();
@@ -94,6 +115,13 @@ define([], function () {
     }
 
     function get(url) {
+        var realurl = url;
+        var query = getQueryParams(document.location.search);
+        if (query.proxy_url) {
+            url = query.proxy_url + "?url=" + encodeURIComponent(url) +
+                "&mode=native&send_cookies=1&send_session=0&user_agent=nada";
+        }
+
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
 
