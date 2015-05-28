@@ -22,11 +22,45 @@ define([
         "use strict";
 
         //***************************************************************************
-        function setImagesToBlank(html) {
+        function preprocessHtml(html) {
 
             function doReplace(html, oldStr, newStr) {
-                var regex = new RegExp(oldStr, 'g');
-                html = html.replace(regex, newStr);
+                var z = html.split(oldStr).join(newStr);
+                return z;
+            }
+
+            function mangleHrefAttributes(baseUrl, doc, html) {
+                // We need access to the raw HREF, as given by SOI, so that we
+                // can determine if this is a relative or absolute link.
+                // We can't extract that reliably from the DOM, so lets make sure
+                // we handle it here in the pre-parsing section.
+
+                var elementsWithHref = doc.querySelectorAll("[href]");
+
+                var hash = {};
+                for (var i = 0; i < elementsWithHref.length; i++) {
+                    var el = elementsWithHref[i];
+                    var val = el.getAttribute("href");
+                    hash[val] = val;
+                }
+
+                Object.keys(hash).forEach(function (oldSrc) {
+                    var oldStr;
+                    var newStr;
+
+                    // Try the three different versions
+                    newStr = "data-old-href='" + oldSrc + "' href='" + oldSrc + "'";
+
+                    oldStr = "href=" + oldSrc;
+                    html = doReplace(html, oldStr, newStr);
+
+                    oldStr = "href='" + oldSrc + "'";
+                    html = doReplace(html, oldStr, newStr);
+
+                    oldStr = "href=\"" + oldSrc + "\"";
+                    html = doReplace(html, oldStr, newStr);
+                });
+
                 return html;
             }
 
@@ -117,11 +151,6 @@ define([
 
                     var mangleGraphics = settings.enableGraphicIcons.value || settings.enableGraphicSuppress.value;
 
-                    if (!mangleGraphics) {
-                        resolve(html);
-                        return;
-                    }
-
                     htmlToDom(html).then(function (doc) {
 
                         // the `html` may not refer to a complete DOM document
@@ -129,11 +158,15 @@ define([
                         // resemblance to our original HTML.
                         // The images, however, do come out.
 
-                        html = mangleImageElements(baseUrl, doc, html);
-                        html = mangleBackgroundAttributes(baseUrl, doc, html);
+                        if (mangleGraphics) {
+                            html = mangleImageElements(baseUrl, doc, html);
+                            html = mangleBackgroundAttributes(baseUrl, doc, html);
+                        }
+
+                        html = mangleHrefAttributes(baseUrl, doc, html);
                         resolve(html);
                     }).catch(function (err) {
-                        window.alert("setImagesInHtmlStringToBlank error: " + err);
+                        window.alert("preprocessHtml error: " + err);
                     });
 
                 });
@@ -254,7 +287,21 @@ define([
                     return;
                 }
 
-                var href = link.href;
+                var url2 = "";
+                var oldUrl = link.getAttribute("data-old-href");
+
+                var queryString = oldUrl.split("?")[1];
+
+                if (oldUrl.indexOf("http") === 0) {
+                    url2 = link.href;
+                } else {
+                    url2 = relativeUrlToAbsolute(baseUrl, oldUrl);
+                    if (queryString) {
+                        url2 += "?" + queryString;
+                    }
+                }
+
+                var href = url2;
                 var url = href.split('?')[0];
 
                 ajax.get(href).then(function (html) {
@@ -264,17 +311,6 @@ define([
                 });
             }
 
-            var links = doc.links;
-            for (var i = 0; i < links.length; i++) {
-                var link = links[i];
-                var oldUrl = link.href;
-                var queryString = oldUrl.split("?")[1];
-
-                link.href = relativeUrlToAbsolute(baseUrl, oldUrl);
-                if (queryString) {
-                    link.href += "?" + queryString;
-                }
-            }
 
             doc.body.addEventListener("click", handleLinkClick, false);
         }
@@ -370,7 +406,7 @@ define([
                     return less.render(hyperChatCss, window.lessOptions);
                 }).then(function (lessOutput) {
                     cssText = lessOutput;
-                    return setImagesToBlank(html);
+                    return preprocessHtml(html);
                 }).then(function (newHtml) {
                     var iframe = document.createElement("iframe");
 
@@ -504,8 +540,7 @@ define([
             copyHtmlStringToDest: copyHtmlStringToDest,
             submit: submit,
             firstSubmit: firstSubmit,
-            htmlToDom: htmlToDom,
-            setImagesInHtmlStringToBlank: setImagesToBlank
+            htmlToDom: htmlToDom
         };
     }
 );
