@@ -11,7 +11,7 @@ define([], function () {
         // query selector breaks.
         //
 
-        var markers =  doc.querySelectorAll("i + a ~ br ~ b");
+        var markers = doc.querySelectorAll("i + a ~ br ~ b");
         return markers;
     }
 
@@ -24,7 +24,7 @@ define([], function () {
     function handleNicknameClick(e) {
 
         var target = e.target;
-        while(target) {
+        while (target) {
             if (target.classList && target.classList.contains("cp-chatroom-nickname")) {
                 break;
             }
@@ -38,6 +38,66 @@ define([], function () {
 
     }
 
+
+    function gatherLinks(srcElement) {
+        var links = [];
+        var anchors = srcElement.querySelectorAll("a");
+        forEachNode(anchors, function (anchor) {
+            if (anchor.href) {
+                links.push(anchor.cloneNode(true));
+            }
+        });
+
+        return links;
+    }
+
+    function makeQuickLinkAccess(doc, boxTable) {
+        function handleQuickLinkClick(e) {
+            e.preventDefault();
+            var span = linkDiv.querySelector("span");
+            if (!span.firstChildElement) {
+                var links = gatherLinks(boxTable);
+                span.innerHTML = "";
+                forEachNode(links, function(link) {
+                    span.appendChild(link);
+                    span.appendChild(document.createTextNode(" "));
+                });
+
+                span.classList.add("visible");
+            }
+        }
+
+        var template = document.getElementById("quick-link-template").innerHTML;
+        var linkDiv = document.createElement("div");
+        linkDiv.className = 'cp-chatroom-quick-links';
+        linkDiv.innerHTML = template;
+        boxTable.parentNode.insertBefore(linkDiv, boxTable);
+
+        linkDiv.addEventListener("click", handleQuickLinkClick, false);
+    }
+
+    function shredChatBox(doc) {
+
+
+
+        // The 'To:' field
+        var boxTable = doc.getElementsByName("vqxto")[0];
+        while (boxTable) {
+            if (boxTable.tagName.toLowerCase() === "table") {
+                break;
+            }
+            boxTable = boxTable.parentNode;
+        }
+
+        // One of the sister sites doesn't use the same layout, so bail out
+        // if that happens.
+        if (!boxTable) {
+            return;
+        }
+
+
+        makeQuickLinkAccess(doc, boxTable);
+    }
 
     function upgrade(doc, settings) {
         var markers = getChatMarkers(doc);
@@ -55,12 +115,13 @@ define([], function () {
 
             var symbol = doc.createElement("span");
             symbol.classList.add("cp-chatroom-nickname");
-            symbol.innerHTML="&#9660;&nbsp;" + clone.innerHTML;
+            symbol.innerHTML = "&#9660;&nbsp;" + clone.innerHTML;
 
             marker.style.display = "none";
             marker.parentNode.insertBefore(symbol, marker);
         });
 
+        shredChatBox(doc);
         doc.body.addEventListener("click", handleNicknameClick, false);
     }
 
