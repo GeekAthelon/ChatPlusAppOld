@@ -26,8 +26,7 @@ define([
 
             function doReplace(html, oldStr, newStr) {
                 //console.log("Replacing: ", oldStr, newStr);
-                var newHtml = html.split(oldStr).join(newStr);
-                return newHtml;
+                return html.split(oldStr).join(newStr);
             }
 
             function replaceAll(key, html, oldSrc, newStr) {
@@ -45,7 +44,7 @@ define([
                 return html;
             }
 
-            function mangleHrefAttributes(baseUrl, doc, html) {
+            function mangleHrefAttributes(doc, html) {
                 // We need access to the raw HREF, as given by SOI, so that we
                 // can determine if this is a relative or absolute link.
                 // We can't extract that reliably from the DOM, so lets make sure
@@ -61,18 +60,14 @@ define([
                 }
 
                 Object.keys(hash).forEach(function (oldSrc) {
-                    var oldStr;
-                    var newStr;
-
-                    // Try the three different versions
-                    newStr = "data-old-href='" + oldSrc + "' href='" + oldSrc + "'";
+                    var newStr = "data-old-href='" + oldSrc + "' href='" + oldSrc + "'";
                     html = replaceAll("href", html, oldSrc, newStr);
                 });
 
                 return html;
             }
 
-            function mangleActionAttributes(baseUrl, doc, html) {
+            function mangleActionAttributes(doc, html) {
                 // We need access to the raw Action, as given by SOI, so that we
                 // can determine if this is a relative or absolute link.
                 // We can't extract that reliably from the DOM, so lets make sure
@@ -88,18 +83,14 @@ define([
                 }
 
                 Object.keys(hash).forEach(function (oldSrc) {
-                    var oldStr;
-                    var newStr;
-
-                    // Try the three different versions
-                    newStr = "data-old-action='" + oldSrc + "' action='" + oldSrc + "'";
+                    var newStr = "data-old-action='" + oldSrc + "' action='" + oldSrc + "'";
                     html = replaceAll("action", html, oldSrc, newStr);
                 });
 
                 return html;
             }
 
-            function mangleBackgroundAttributes(baseUrl, doc, html) {
+            function mangleBackgroundAttributes(doc, html) {
                 var elementsWithBackground = doc.querySelectorAll("[background]");
 
                 var hash = {};
@@ -110,11 +101,7 @@ define([
                 }
 
                 Object.keys(hash).forEach(function (oldSrc) {
-                    var oldStr;
-                    var newStr;
-
-                    // Try the three different versions
-                    newStr = "data-old-background='" + oldSrc + "'";
+                    var newStr = "data-old-background='" + oldSrc + "'";
                     html = replaceAll("background", html, oldSrc, newStr);
                 });
 
@@ -132,7 +119,6 @@ define([
 
                 Object.keys(hash).forEach(function (oldSrc) {
                     var newSrc = baseUrl + "/img/image-placeholder.png";
-                    var oldStr;
                     var newStr;
 
                     // Try the three different versions
@@ -174,11 +160,11 @@ define([
 
                         if (mangleGraphics) {
                             html = mangleImageElements(baseUrl, doc, html);
-                            html = mangleBackgroundAttributes(baseUrl, doc, html);
+                            html = mangleBackgroundAttributes(doc, html);
                         }
 
-                        html = mangleActionAttributes(baseUrl, doc, html);
-                        html = mangleHrefAttributes(baseUrl, doc, html);
+                        html = mangleActionAttributes(doc, html);
+                        html = mangleHrefAttributes(doc, html);
                         resolve(html);
                     }).catch(function (err) {
                         window.alert("preprocessHtml error: " + err);
@@ -191,7 +177,7 @@ define([
 
 //*****************************************************************************
 
-        function collapseWidths(doc, settings) {
+        function collapseWidths(doc) {
             var elements = doc.querySelectorAll("table, [data-old-background]");
             forEachNode(elements, function (element) {
                 if (element.tagName.toLowerCase() === "table") {
@@ -223,13 +209,12 @@ define([
 
                 if (settings.enableGraphicSuppress.value) {
                     image.parentNode.removeChild(image);
-                    return;
                 }
 
             });
         }
 
-        function removeCenterElement(doc, settings) {
+        function removeCenterElement(doc) {
             var centerElements = doc.querySelectorAll("center");
 
             forEachNode(centerElements, function (centerElement) {
@@ -334,7 +319,7 @@ define([
                 var form = this;
 
                 var url = relativeUrlToAbsolute(baseUrl, form.getAttribute("data-old-action"));
-                
+
                 var serializePromise = ajax.serialize(form);
                 serializePromise.then(function (data) {
                     submit(url, data);
@@ -377,6 +362,7 @@ define([
                 }
 
                 function handleTabButtonClick(e) {
+                    e.preventDefault();
                     /*jshint validthis:true */
                     var roomName = this.getAttribute("data-room-name");
                     showTab(roomName);
@@ -453,13 +439,13 @@ define([
                         addToTabs(iframe, mydoc);
 
                         if (settings.enableRemoveCenter.value) {
-                            removeCenterElement(mydoc, settings);
+                            removeCenterElement(mydoc);
                         }
 
 
                         if (hyperchat.isSoiPage(mydoc)) {
                             mangleImages(mydoc, settings);
-                            collapseWidths(mydoc, settings);
+                            collapseWidths(mydoc);
                             hyperchat.injectStyleRule(mydoc, cssText.css);
                         }
 
@@ -505,7 +491,7 @@ define([
 
             settingManager.getSettingsList().then(function (settings) {
 
-                Object.keys(settings).forEach(function (key, i) {
+                Object.keys(settings).forEach(function (key) {
                     var item = settings[key];
                     if (item.type === "bool") {
                         item.value = document.getElementById(key).checked;
@@ -527,7 +513,7 @@ define([
                 ul.innerHTML = "";
                 var listHtml = [];
 
-                Object.keys(settings).forEach(function (key, i) {
+                Object.keys(settings).forEach(function (key) {
                     var item = settings[key];
                     var template = document.getElementById("settings-bool-template").innerHTML;
 
