@@ -25,8 +25,23 @@ define([
         function preprocessHtml(html) {
 
             function doReplace(html, oldStr, newStr) {
-                var z = html.split(oldStr).join(newStr);
-                return z;
+                var newHtml = html.split(oldStr).join(newStr);
+                return newHtml;
+            }
+
+            function replaceAll(key, html, oldSrc, newStr) {
+                var oldStr;
+
+                oldStr = key + "=" + oldSrc;
+                html = doReplace(html, oldStr, newStr);
+
+                oldStr = key + "='" + oldSrc + "'";
+                html = doReplace(html, oldStr, newStr);
+
+                oldStr = key + "=\"" + oldSrc + "\"";
+                html = doReplace(html, oldStr, newStr);
+
+                return html;
             }
 
             function mangleHrefAttributes(baseUrl, doc, html) {
@@ -50,15 +65,7 @@ define([
 
                     // Try the three different versions
                     newStr = "data-old-href='" + oldSrc + "' href='" + oldSrc + "'";
-
-                    oldStr = "href=" + oldSrc;
-                    html = doReplace(html, oldStr, newStr);
-
-                    oldStr = "href='" + oldSrc + "'";
-                    html = doReplace(html, oldStr, newStr);
-
-                    oldStr = "href=\"" + oldSrc + "\"";
-                    html = doReplace(html, oldStr, newStr);
+                    html = replaceAll("href", html, oldSrc, newStr);
                 });
 
                 return html;
@@ -80,18 +87,7 @@ define([
 
                     // Try the three different versions
                     newStr = "data-old-background='" + oldSrc + "'";
-
-                    // handle src=url
-                    oldStr = "background=" + oldSrc;
-                    html = doReplace(html, oldStr, newStr);
-
-                    // handle src='url'
-                    oldStr = "background='" + oldSrc + "'";
-                    html = doReplace(html, oldStr, newStr);
-
-                    // handle src="url"
-                    oldStr = "background=\"" + oldSrc + "\"";
-                    html = doReplace(html, oldStr, newStr);
+                    html = replaceAll("background", html, oldSrc, newStr);
                 });
 
                 return html;
@@ -114,17 +110,7 @@ define([
                     // Try the three different versions
                     newStr = "src='" + newSrc + "' data-old-src='" + oldSrc + "'";
 
-                    // handle src=url
-                    oldStr = "src=" + oldSrc;
-                    html = doReplace(html, oldStr, newStr);
-
-                    // handle src='url'
-                    oldStr = "src='" + oldSrc + "'";
-                    html = doReplace(html, oldStr, newStr);
-
-                    // handle src="url"
-                    oldStr = "src=\"" + oldSrc + "\"";
-                    html = doReplace(html, oldStr, newStr);
+                    html = replaceAll("src", html, oldSrc, newStr);
                 });
 
                 return html;
