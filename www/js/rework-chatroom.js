@@ -51,6 +51,29 @@ define([], function () {
         return links;
     }
 
+    function collapseFindArea(doc, boxTable) {
+        var findArea = boxTable.querySelector("td");
+        if (!findArea.querySelector("[name='vqxfi']")) {
+            window.alert("Did not found find button");
+        }
+
+        var div = document.createElement("div");
+        while (findArea.firstChild) {
+            div.appendChild(findArea.firstChild);
+        }
+
+
+
+        findArea.style.display = "none";
+    }
+
+    function makeMiniEditor(doc, boxTable) {
+        var template = document.getElementById("chat-box-mini-template").innerHTML;
+        var editorDiv = document.createElement("div");
+        editorDiv.innerHTML = template;
+        boxTable.parentNode.insertBefore(editorDiv, boxTable);
+    }
+
     function makeQuickLinkAccess(doc, boxTable) {
         function handleQuickLinkClick(e) {
             e.preventDefault();
@@ -78,8 +101,6 @@ define([], function () {
 
     function shredChatBox(doc) {
 
-
-
         // The 'To:' field
         var boxTable = doc.getElementsByName("vqxto")[0];
         while (boxTable) {
@@ -96,7 +117,9 @@ define([], function () {
         }
 
 
+        makeMiniEditor(doc, boxTable);
         makeQuickLinkAccess(doc, boxTable);
+        collapseFindArea(doc, boxTable);
     }
 
     function upgrade(doc, settings) {

@@ -76,17 +76,17 @@
     }
 
     #settings-tab input[type="checkbox"] {
-        display:none;
-    }
-    #settings-tab input[type="checkbox"] + label span {
-        cursor:pointer;
-        display:inline-block;
+        display: none;
     }
 
+    #settings-tab input[type="checkbox"] + label span {
+        cursor: pointer;
+        display: inline-block;
+    }
 
     .touch-icon {
         font-family: FontAwesome;
-        display:inline-block;
+        display: inline-block;
         font-size: 32px;
         width: 32px;
     }
@@ -94,7 +94,7 @@
     #settings-tab input[type="checkbox"] + label span::after {
         font-family: FontAwesome;
         margin-right: 0.25em;
-        display:inline-block;
+        display: inline-block;
         font-size: 32px;
         width: 32px;
         content: "\F096";
@@ -148,7 +148,7 @@
 </script>
 
 <script type="text/html" id="image-alt-text-template">
-  <span style="border: 1px solid dodgerblue; color:lavenderblush; padding: 0.25em" class="fake-image">{text}</span>
+    <span style="border: 1px solid dodgerblue; color:lavenderblush; padding: 0.25em" class="fake-image">{text}</span>
 </script>
 
 <script type="text/html" id="quick-link-template">
@@ -157,3 +157,49 @@
         <span></span>
     </div>
 </script>
+
+<script type="text/html" id="chat-box-mini-template">
+    <div>
+
+        <form action="somf.exe#chatmark" method="POST" id="chat-form">
+
+            <div class="row clearfix">
+
+                <div class="line-600">
+                    <label>
+                        <span>From:</span>
+                        <input type="text" name="vqxha" size="11" value="">
+                    </label>
+                </div>
+
+                <div class="line-600">
+                    <label>
+                        <span>To:</span>
+                        <input type="text" name="vqxto" size="11" value="">
+                    </label>
+                </div>
+
+                <div class="line-600">
+                    <label>
+                        <span>&#8594;</span>
+                        <select name="vqvdy">
+                            <option>&lt;==</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+
+            <textarea spellcheck="" name="vqxsp" rows="4" cols="55" wrap="VIRTUAL"></textarea>
+
+            <input type="submit" name="vqvaj" value="Talk/Listen">
+
+            <label>
+                Hide Extras
+                <input type="checkbox" name="vqvcg">
+            </label>
+
+        </form>
+    </div>
+</script>
+
