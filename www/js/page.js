@@ -25,6 +25,7 @@ define([
         function preprocessHtml(html) {
 
             function doReplace(html, oldStr, newStr) {
+                //console.log("Replacing: ", oldStr, newStr);
                 var newHtml = html.split(oldStr).join(newStr);
                 return newHtml;
             }
@@ -66,6 +67,33 @@ define([
                     // Try the three different versions
                     newStr = "data-old-href='" + oldSrc + "' href='" + oldSrc + "'";
                     html = replaceAll("href", html, oldSrc, newStr);
+                });
+
+                return html;
+            }
+
+            function mangleActionAttributes(baseUrl, doc, html) {
+                // We need access to the raw Action, as given by SOI, so that we
+                // can determine if this is a relative or absolute link.
+                // We can't extract that reliably from the DOM, so lets make sure
+                // we handle it here in the pre-parsing section.
+
+                var elementsWithAction = doc.querySelectorAll("[action]");
+
+                var hash = {};
+                for (var i = 0; i < elementsWithAction.length; i++) {
+                    var el = elementsWithAction[i];
+                    var val = el.getAttribute("action");
+                    hash[val] = val;
+                }
+
+                Object.keys(hash).forEach(function (oldSrc) {
+                    var oldStr;
+                    var newStr;
+
+                    // Try the three different versions
+                    newStr = "data-old-action='" + oldSrc + "' action='" + oldSrc + "'";
+                    html = replaceAll("action", html, oldSrc, newStr);
                 });
 
                 return html;
@@ -149,6 +177,7 @@ define([
                             html = mangleBackgroundAttributes(baseUrl, doc, html);
                         }
 
+                        html = mangleActionAttributes(baseUrl, doc, html);
                         html = mangleHrefAttributes(baseUrl, doc, html);
                         resolve(html);
                     }).catch(function (err) {
@@ -262,16 +291,17 @@ define([
 
         function finalizePage(baseUrl, doc) {
             function handleLinkClick(e) {
-                e.preventDefault();
 
                 var link = e.target;
-                while (link.tagName.toLowerCase() !== "a") {
+                while (link && link.tagName && link.tagName.toLowerCase() !== "a") {
                     link = link.parentNode;
                 }
 
-                if (!link) {
+                if (link === doc) {
                     return;
                 }
+
+                e.preventDefault();
 
                 var url2 = "";
                 var oldUrl = link.getAttribute("data-old-href");
@@ -297,6 +327,24 @@ define([
                 });
             }
 
+
+            function handleFormSubmit(e) {
+                /*jshint validthis:true */
+                e.preventDefault();
+                var form = this;
+
+                var url = relativeUrlToAbsolute(baseUrl, form.getAttribute("data-old-action"));
+                
+                var serializePromise = ajax.serialize(form);
+                serializePromise.then(function (data) {
+                    submit(url, data);
+                });
+            }
+
+            var forms = doc.getElementsByTagName("form");
+            forEachNode(forms, function(form) {
+                form.addEventListener("submit", handleFormSubmit, false);
+            });
 
             doc.body.addEventListener("click", handleLinkClick, false);
         }
