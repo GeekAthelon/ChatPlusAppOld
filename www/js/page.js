@@ -527,6 +527,7 @@ define([
 
         function firstSubmit(url, data) {
             ajax.post(url, data).then(function (html) {
+
                 document.body.innerHTML = mainWindowTemplate;
                 return copyPageToDom(url, html);
             }).then(function () {

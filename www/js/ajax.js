@@ -85,24 +85,53 @@ define([], function () {
     }
 
 
+    function handleProxyResponse(resolve, reject, reply) {
+        // The proxy server gives us EVERYTHING, including the
+        // http headers.
+        //
+        // Since we're only using the browser for development,
+        // testing and it isn't our main concern, let the chips
+        // fall were they will and pass the response text along.
+        //
+        // Be nice and at least strip the headers off though.
+        //
+        var html = reply;
+
+        var endOfHeaderMarker = reply.indexOf('\r\n\r\n');
+        var headers = reply.substr(0, endOfHeaderMarker);
+        html = html.substr(endOfHeaderMarker + 4);
+
+        resolve(html);
+    }
+
     function post(url, data) {
 
         var query = getQueryParams(document.location.search);
-        if (query.proxy_url) {
-            url = query.proxy_url + "?url=" + url + "&mode=native&send_cookies=1&send_session=0&user_agent=nada";
+        var isUsingProxy = !!query.proxy_url;
+        if (isUsingProxy) {
+            url = query.proxy_url + "?url=" + url + "&mode=native&send_cookies=1&send_session=0&user_agent=nada" +
+                "full_headers=1&full_status=1";
         }
+
 
         return new Promise(function (resolve, reject) {
 
             var xhr = new XMLHttpRequest();
 
             xhr.open('POST', url);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = handler;
             xhr.send(data);
 
             function handler() {
                 /*jshint validthis:true */
                 if (this.readyState === this.DONE) {
+
+                    if (isUsingProxy) {
+                        handleProxyResponse(resolve, reject, this.response);
+                        return;
+                    }
+
                     if (this.status === 200) {
                         resolve(this.response);
                     } else {
